@@ -36,6 +36,13 @@ class User
 	 * @var string
 	 */
 	private $email;
+        
+        /**
+         * @ORM\Column(type="string", length=150, nullable=true)
+         * 
+         * @var string
+         */
+        private $password;
 	
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
