@@ -69,19 +69,31 @@ use DoctrineNaPratica\Model\Lesson;
 //$entityManager->flush();
 
 
-$user = $entityManager->getRepository('DoctrineNaPratica\Model\User')
-                      ->findOneByName('Andre');
+/*
+ * Vinculo Many To Many
+ */
+//$user = $entityManager->getRepository('DoctrineNaPratica\Model\User')
+//                      ->findOneByName('Andre');
+//
+//$course = new Course;
+//$course->setName('Novo curso');
+//$course->setValue(100);
+//
+//$lesson = new Lesson;
+//$lesson->setName('Teste');
+//$lesson->setCourse($course);
+//
+//$course->getLessonCollection()->add($lesson);
+//$user->getLessonCollection()->add($lesson);
+//    
+//$entityManager->persist($user);
+//$entityManager->flush();
 
-$course = new Course;
-$course->setName('Novo curso');
-$course->setValue(100);
 
-$lesson = new Lesson;
-$lesson->setName('Teste');
-$lesson->setCourse($course);
+/**
+ * Removendo usuário
+ */
+$user = $entityManager->find('DoctrineNaPratica\Model\User', 6);
 
-$course->getLessonCollection()->add($lesson);
-$user->getLessonCollection()->add($lesson);
-    
-$entityManager->persist($user);
+$entityManager->remove($user);
 $entityManager->flush();
