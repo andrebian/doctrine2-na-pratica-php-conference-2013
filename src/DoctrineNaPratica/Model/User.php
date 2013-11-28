@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="User")
-*/
+ */
 class User
 {
 	/**
@@ -36,13 +36,6 @@ class User
 	 * @var string
 	 */
 	private $email;
-        
-        /**
-         * @ORM\Column(type="string", length=150, nullable=true)
-         * 
-         * @var string
-         */
-        private $password;
 	
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
@@ -50,6 +43,33 @@ class User
 	 * @var string
 	 */
 	private $avatar;
+	
+	/**
+	 * @ORM\OneToOne(targetEntity="Subscription", mappedBy="user")
+	 **/
+	private $subscription;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Enrollment", mappedBy="user", cascade={"all"}, orphanRemoval=true, fetch="LAZY")
+	 */
+	private $enrollmentCollection;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Course", mappedBy="teacher", cascade={"all"}, orphanRemoval=true, fetch="LAZY")
+	 * 
+	 * @var Doctrine\Common\Collections\Collection
+	 */
+	protected $courseCollection;
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="Lesson", inversedBy="userLessons", cascade={"all"})
+	 * @ORM\JoinTable(name="LessonUser",
+	 *   joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+	 *   inverseJoinColumns={@ORM\JoinColumn(name="lesson_id", referencedColumnName="id")}
+	 * )
+	 */
+	private $lessonCollection;
+	
 	
 	/**
 	 * @return integer
@@ -98,4 +118,51 @@ class User
 	{
 	    return $this->avatar = $avatar;
 	}
+	
+	public function getSubscription()
+	{
+	    return $this->subscription;
+	}
+	
+	public function setSubscription($subscription)
+	{
+	    return $this->subscription = $subscription;
+	}
+	
+	public function getEnrollmentCollection()
+	{
+	    return $this->enrollmentCollection;
+	}
+	
+	public function setEnrollmentCollection($enrollmentCollection)
+	{
+	    return $this->enrollmentCollection = $enrollmentCollection;
+	}
+	
+	public function getCourseCollection()
+	{
+	    return $this->courseCollection;
+	}
+	
+	public function setCourseCollection($courseCollection)
+	{
+	    return $this->courseCollection = $courseCollection;
+	}
+	
+	public function getLessonCollection()
+	{
+	    return $this->lessonCollection;
+	}
+	
+	public function setLessonCollection($lessonCollection)
+	{
+	    return $this->lessonCollection = $lessonCollection;
+	}
+
+	public function __construct() 
+	{
+        $this->courseCollection = new ArrayCollection;
+        $this->lessonCollection = new ArrayCollection;
+        $this->enrollmentCollection = new ArrayCollection;
+    }
 }
