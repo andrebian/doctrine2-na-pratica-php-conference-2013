@@ -12,7 +12,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 //se for falso usa o APC como cache, se for true usa cache em arrays
-$isDevMode = false;
+$isDevMode = true;
 
 //caminho das entidades
 $paths = array(__DIR__ . '/src/DoctrineNaPratica/Model');
@@ -22,6 +22,7 @@ $dbParams = array(
     'user'     => 'root',
     'password' => 'root',
     'dbname'   => 'doctrine_na_pratica',
+    'host'     => '127.0.0.1'
 );
 
 $config = Setup::createConfiguration($isDevMode);
