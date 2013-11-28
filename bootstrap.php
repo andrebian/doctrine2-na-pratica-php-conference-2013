@@ -20,8 +20,8 @@ $paths = array(__DIR__ . '/src/DoctrineNaPratica/Model');
 $dbParams = array(
     'driver'   => 'pdo_mysql',
     'user'     => 'root',
-    'password' => '',
-    'dbname'   => 'dnp',
+    'password' => 'root',
+    'dbname'   => 'doctrine_na_pratica',
 );
 
 $config = Setup::createConfiguration($isDevMode);
